@@ -1,2 +1,2 @@
-# 04_BattleTank
+# BattleTank
 Tank Game from Unreal project
