@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Amanda Britton
 
 #include "TankMovementComponent.h"
 #include "TankTrack.h"
@@ -18,7 +18,6 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	}
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
-	//TODO Fix speed issues when using W and AD to go faster
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -40,7 +39,8 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
 	IntendMoveForward(ForwardThrow);
 
-
+	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+	IntendTurnRight(RightThrow);
 
 	//auto Name = GetOwner()->GetName();
 	//UE_LOG(LogTemp, Warning, TEXT("%s is moving!"), *Name);
