@@ -8,7 +8,7 @@
 #include "Engine/World.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
-#include "TankMovementComponent.h"
+
 
 
 
@@ -23,8 +23,12 @@ ATank::ATank()
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel))
+	{
+		return;
+	}
 	bool isReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && isReloaded)
+	if (isReloaded)
 	{
 		// Spawn a projectile at the socket location on the barrel
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
@@ -32,8 +36,6 @@ void ATank::Fire()
 		
 		LastFireTime = GetWorld()->GetTimeSeconds();
 	}
-	
-	
 }
 
 // Called when the game starts or when spawned
@@ -41,11 +43,12 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	//UE_LOG(LogTemp, Warning, TEXT("Kitty : Tank BeginPlay Loaded!"));
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATank::AimAt(FVector OutHitLocation)
 {
-	if (!TankAimingComponent)
+	if (!ensure(TankAimingComponent))
 	{
 		return;
 	}
