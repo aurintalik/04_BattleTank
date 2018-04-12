@@ -43,6 +43,8 @@ private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	void MoveBarrelTowards(FVector AimDirection);
+
 	UTankBarrel* Barrel = nullptr;
 	UTurret* Turret = nullptr;
 
@@ -54,8 +56,4 @@ private:
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
 	float LastFireTime = 0;
-	
-	void MoveBarrelTowards(FVector AimDirection);
-		
-	
 };
