@@ -19,12 +19,15 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	void BeginPlay() override;
 	
-	
+protected:
+	//How close can the AI tank get
+	UPROPERTY(EditAnywhere, Category = "Setup") // Consider EditDefaultsOnly - That crashed me to shit last time so no.
+	float AcceptanceRadius = 8000;
+
 private:
 	virtual void Tick(float DeltaTime) override;
 
-	//How close can the AI tank get
-	float AcceptanceRadius = 3000;
+	
 	
 	
 	
