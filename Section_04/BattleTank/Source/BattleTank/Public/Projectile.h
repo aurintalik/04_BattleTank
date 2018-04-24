@@ -5,7 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "ParticleDefinitions.h"
+#include "Particles/ParticleSystem.h"
+#include "Particles/ParticleSystemComponent.h"
 #include "Projectile.generated.h"
+
 
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
@@ -27,7 +31,13 @@ public:
 	void LaunchProjectile(float Speed);
 
 private:
+	UPROPERTY(VisibleAnywhere)
 	UProjectileMovementComponent * ProjectileMovement = nullptr;
 	
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* CollisionMesh = nullptr;
+
+	UPROPERTY(VisibleAnywhere)
+	UParticleSystemComponent* LaunchBlast = nullptr;
 	
 };
